@@ -9,8 +9,7 @@ const json = (data, status = 200) =>
 const clip = (v, n) => String(v ?? "").slice(0, n);
 
 export default async (req) => {
-  const store = getStore("annonces");
-
+const store = getStore({ name: "annonces", consistency: "strong" });
   if (req.method === "GET") {
     const { blobs } = await store.list();
     const items = (await Promise.all(blobs.map((b) => store.get(b.key, { type: "json" })))).filter(Boolean);
