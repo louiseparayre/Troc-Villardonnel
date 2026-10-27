@@ -1,0 +1,694 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,600&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --creme: #FFF6E5;
+  --creme-dark: #FCEBC4;
+  --papier: #FFFDF7;
+  --encre: #2E2A47;
+  --encre-soft: #6D6890;
+  --jaune: #FFC53D;
+  --jaune-soft: #FFEDBD;
+  --corail: #FF6B6B;
+  --corail-soft: #FFDCDC;
+  --vert: #35B378;
+  --vert-soft: #CFF3E1;
+  --bleu: #3FA7E1;
+  --violet: #9B5DE5;
+  --rose: #F15BB5;
+  --ligne: #EFDFB0;
+}
+html, body { margin: 0; padding: 0; background: #FFF6E5; min-height: 100%; }
+
+.vdn-app {
+  background: var(--creme);
+  color: var(--encre);
+  font-family: 'Nunito', sans-serif;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.vdn-app * { box-sizing: border-box; }
+.vdn-app h1, .vdn-app h2, .vdn-app .vdn-display { font-family: 'Fredoka', sans-serif; }
+.vdn-inner { max-width: 980px; margin: 0 auto; padding: 26px 22px 60px; }
+
+/* ---------- Masthead ---------- */
+.vdn-bunting {
+  width: 100%; height: 22px; display: block; margin-bottom: 14px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='168' height='22' viewBox='0 0 168 22'%3E%3Cpolygon points='0,0 20,0 10,20' fill='%23FF6B6B'/%3E%3Cpolygon points='28,0 48,0 38,20' fill='%23FFC53D'/%3E%3Cpolygon points='56,0 76,0 66,20' fill='%2335B378'/%3E%3Cpolygon points='84,0 104,0 94,20' fill='%233FA7E1'/%3E%3Cpolygon points='112,0 132,0 122,20' fill='%239B5DE5'/%3E%3Cpolygon points='140,0 160,0 150,20' fill='%23F15BB5'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 168px 22px;
+}
+.vdn-masthead {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+  border-bottom: 3px dashed var(--ligne);
+  flex-wrap: wrap;
+}
+.vdn-sun { width: 78px; height: 78px; flex-shrink: 0; animation: vdn-spin 22s linear infinite; }
+@keyframes vdn-spin { to { transform: rotate(360deg); } }
+.vdn-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vert);
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+.vdn-masthead h1 {
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 600;
+  margin: 0 0 6px;
+  line-height: 1.05;
+  color: var(--encre);
+}
+.vdn-masthead h1 em { font-style: normal; color: var(--corail); }
+.vdn-tagline { margin: 0; color: var(--encre-soft); font-size: 15px; font-weight: 600; max-width: 46ch; }
+
+/* ---------- Toolbar ---------- */
+.vdn-toolbar { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.vdn-filter-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.vdn-chip {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 15px;
+  border-radius: 999px;
+  border: 2px solid var(--ligne);
+  background: var(--papier);
+  color: var(--encre-soft);
+  cursor: pointer;
+  transition: transform .12s ease, border-color .12s ease, color .12s ease, background .12s ease;
+  white-space: nowrap;
+}
+.vdn-chip:hover { border-color: var(--cat-color, var(--vert)); color: var(--encre); transform: translateY(-2px) rotate(-1deg); }
+.vdn-chip.active { background: var(--cat-color, var(--encre)); border-color: var(--cat-color, var(--encre)); color: #fff; transform: rotate(-1deg); }
+.vdn-chip svg { width: 14px; height: 14px; vertical-align: -2px; margin-right: 5px; }
+
+.vdn-searchrow { display: flex; gap: 10px; flex-wrap: wrap; }
+.vdn-search {
+  flex: 1 1 220px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 15px;
+  border-radius: 12px;
+  border: 2px solid var(--ligne);
+  background: var(--papier);
+  color: var(--encre);
+}
+.vdn-search::placeholder { color: var(--encre-soft); font-weight: 600; }
+.vdn-search:focus { outline: 3px solid var(--jaune); outline-offset: 1px; }
+.vdn-btn-primary {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 11px 20px;
+  border-radius: 12px;
+  border: none;
+  background: var(--corail);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #D64545;
+  transition: transform .1s ease, box-shadow .1s ease;
+  white-space: nowrap;
+}
+.vdn-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #D64545; }
+.vdn-btn-primary:active { transform: translateY(2px); box-shadow: 0 2px 0 #D64545; }
+.vdn-btn-primary:focus-visible, .vdn-chip:focus-visible, .vdn-search:focus-visible { outline: 3px solid var(--jaune); outline-offset: 2px; }
+
+/* ---------- Board ---------- */
+.vdn-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  align-items: start;
+  gap: 36px 20px;
+  padding-top: 16px;
+}
+@keyframes vdn-pop {
+  from { opacity: 0; transform: translateY(10px) scale(.94) rotate(var(--rot)); }
+  to { opacity: 1; transform: translateY(0) scale(1) rotate(var(--rot)); }
+}
+.vdn-card {
+  position: relative;
+  background: var(--papier);
+  padding: 22px 16px 14px;
+  margin-top: 12px;
+  border-radius: 14px;
+  border: 2.5px solid var(--encre);
+  box-shadow: 4px 5px 0 var(--cat-color, var(--encre));
+  transform: rotate(var(--rot));
+  animation: vdn-pop .35s ease backwards;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.vdn-card:hover { transform: translateY(-4px) rotate(0deg); box-shadow: 6px 8px 0 var(--cat-color, var(--encre)); z-index: 2; }
+.vdn-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 58px;
+  height: 20px;
+  background: var(--cat-color, var(--jaune));
+  opacity: 0.85;
+  border-radius: 2px;
+}
+
+.vdn-badge-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 6px; }
+.vdn-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: #fff;
+}
+.vdn-card.propose .vdn-badge { background: var(--vert); }
+.vdn-card.recherche .vdn-badge { background: var(--corail); }
+.vdn-cat {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px; color: var(--cat-color, var(--encre-soft)); font-weight: 800;
+}
+.vdn-cat svg { width: 14px; height: 14px; }
+
+.vdn-card-title { font-family: 'Fredoka', sans-serif; font-size: 19px; font-weight: 600; margin: 0 0 6px; line-height: 1.2; }
+.vdn-card-desc { font-size: 13.5px; color: var(--encre-soft); font-weight: 600; line-height: 1.5; margin: 0 0 14px; white-space: pre-wrap; }
+
+.vdn-card-footer {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-top: 2.5px dotted var(--ligne); padding-top: 10px; gap: 8px;
+}
+.vdn-author { font-size: 12.5px; font-weight: 800; margin: 0; }
+.vdn-contact { font-size: 11.5px; color: var(--encre-soft); margin: 2px 0 0; font-family: 'Space Mono', monospace; }
+.vdn-date { font-size: 10.5px; color: var(--encre-soft); font-family: 'Space Mono', monospace; white-space: nowrap; font-weight: 700; }
+.vdn-delete {
+  background: none; border: none; cursor: pointer;
+  font-size: 11px; font-family: 'Space Mono', monospace; font-weight: 700;
+  color: var(--encre-soft); text-decoration: underline;
+  padding: 3px 0; margin-top: 4px;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.vdn-delete svg { width: 12px; height: 12px; flex-shrink: 0; }
+.vdn-delete:hover { color: var(--corail); }
+.vdn-delete.confirm { color: var(--corail); font-weight: 700; text-decoration: none; }
+
+/* ---------- Replies ("Je peux le faire !") ---------- */
+.vdn-replies { border-top: 2.5px dotted var(--ligne); margin-top: 12px; padding-top: 12px; }
+.vdn-replies-label { font-size: 11.5px; font-weight: 800; margin: 0 0 6px; color: var(--encre-soft); }
+.vdn-reply-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.vdn-reply-chip {
+  font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+  background: var(--vert-soft); color: #157A4B;
+}
+.vdn-reply-toggle {
+  width: 100%; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 13.5px;
+  padding: 9px; border-radius: 10px; border: 2px dashed var(--cat-color, var(--vert));
+  background: none; color: var(--cat-color, var(--vert)); cursor: pointer;
+  transition: background .12s ease, color .12s ease;
+}
+.vdn-reply-toggle:hover { background: var(--cat-color, var(--vert)); color: #fff; }
+.vdn-reply-form { display: none; flex-direction: column; gap: 8px; margin-top: 10px; }
+.vdn-reply-form.vdn-open { display: flex; }
+.vdn-reply-form input {
+  font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600;
+  padding: 8px 11px; border-radius: 8px; border: 2px solid var(--ligne); background: #fff; color: var(--encre);
+}
+.vdn-reply-form input:focus { outline: 3px solid var(--jaune); outline-offset: 1px; }
+.vdn-reply-submit {
+  font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 13.5px;
+  padding: 8px; border-radius: 8px; border: none; cursor: pointer;
+  background: var(--encre); color: #fff;
+}
+.vdn-reply-error { font-size: 11px; font-weight: 700; color: var(--corail); margin: 0; }
+
+/* ---------- Notice ---------- */
+.vdn-notice {
+  display: none; margin-bottom: 14px; padding: 10px 14px; border-radius: 12px;
+  background: var(--jaune-soft); border: 2px solid var(--jaune);
+  font-size: 13px; font-weight: 700; color: var(--encre);
+}
+.vdn-notice.vdn-show { display: block; }
+
+/* ---------- Empty / loading ---------- */
+.vdn-empty {
+  text-align: center; padding: 50px 20px; color: var(--encre-soft); font-weight: 700;
+  border: 3px dashed var(--ligne); border-radius: 16px;
+}
+.vdn-empty .vdn-display { font-size: 21px; display: block; margin-bottom: 6px; color: var(--encre); }
+
+/* ---------- Modal ---------- */
+.vdn-overlay {
+  position: fixed; inset: 0; background: rgba(46,42,71,0.55);
+  display: none; align-items: center; justify-content: center;
+  padding: 16px; z-index: 50;
+}
+.vdn-overlay.vdn-open { display: flex; }
+.vdn-modal {
+  background: var(--papier); border-radius: 20px; padding: 26px;
+  width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto;
+  border: 3px solid var(--encre);
+  box-shadow: 8px 8px 0 var(--jaune);
+}
+.vdn-modal h2 { font-size: 23px; margin: 0 0 4px; font-weight: 600; }
+.vdn-modal .vdn-modal-sub { font-size: 13px; color: var(--encre-soft); font-weight: 700; margin: 0 0 18px; }
+.vdn-field { margin-bottom: 14px; }
+.vdn-field label { display: block; font-size: 12.5px; font-weight: 800; margin-bottom: 5px; }
+.vdn-field input, .vdn-field textarea, .vdn-field select {
+  width: 100%; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 600;
+  padding: 10px 12px; border-radius: 10px; border: 2px solid var(--ligne);
+  background: #fff; color: var(--encre);
+}
+.vdn-field textarea { resize: vertical; min-height: 70px; }
+.vdn-field input:focus, .vdn-field textarea:focus, .vdn-field select:focus { outline: 3px solid var(--jaune); outline-offset: 1px; }
+.vdn-radio-row { display: flex; gap: 10px; }
+.vdn-radio-opt {
+  flex: 1; border: 2px solid var(--ligne); border-radius: 11px; padding: 10px;
+  text-align: center; cursor: pointer; font-size: 13.5px; font-weight: 800;
+  position: relative; transition: transform .1s ease;
+}
+.vdn-radio-opt:hover { transform: translateY(-1px); }
+.vdn-radio-opt input { position: absolute; opacity: 0; pointer-events: none; }
+.vdn-radio-opt.checked-propose { border-color: var(--vert); background: var(--vert-soft); color: #157A4B; }
+.vdn-radio-opt.checked-recherche { border-color: var(--corail); background: var(--corail-soft); color: #C43D3D; }
+.vdn-modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+.vdn-btn-secondary {
+  flex: 1; background: none; border: 2px solid var(--ligne); border-radius: 11px;
+  padding: 10px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 14px;
+  cursor: pointer; color: var(--encre-soft);
+}
+.vdn-btn-secondary:hover { border-color: var(--encre); color: var(--encre); }
+.vdn-modal-actions .vdn-btn-primary { flex: 1; text-align: center; }
+.vdn-error { font-size: 12px; font-weight: 700; color: var(--corail); margin: -8px 0 12px; }
+
+@media (max-width: 480px) {
+  .vdn-inner { padding: 20px 14px 40px; }
+  .vdn-masthead { gap: 12px; }
+  .vdn-sun { width: 56px; height: 56px; }
+}
+</style>
+
+<div class="vdn-app" id="vdn-root">
+<div class="vdn-inner">
+
+  <div class="vdn-bunting"></div>
+
+  <header class="vdn-masthead">
+    <svg class="vdn-sun" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#FFC53D" stroke-width="6" stroke-linecap="round">
+        <line x1="50" y1="2" x2="50" y2="16"/>
+        <line x1="50" y1="84" x2="50" y2="98"/>
+        <line x1="2" y1="50" x2="16" y2="50"/>
+        <line x1="84" y1="50" x2="98" y2="50"/>
+        <line x1="16" y1="16" x2="26" y2="26"/>
+        <line x1="74" y1="74" x2="84" y2="84"/>
+        <line x1="84" y1="16" x2="74" y2="26"/>
+        <line x1="26" y1="74" x2="16" y2="84"/>
+      </g>
+      <circle cx="50" cy="50" r="24" fill="#FFC53D"/>
+      <circle cx="43" cy="45" r="3" fill="#2E2A47"/>
+      <circle cx="59" cy="45" r="3" fill="#2E2A47"/>
+      <path d="M40 57 Q50 65 60 57" stroke="#2E2A47" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <p class="vdn-eyebrow">Commune de Villardonnel</p>
+      <h1>Le panneau <em>troc &amp; entraide</em></h1>
+      <p class="vdn-tagline">Un coup de main, un savoir-faire, une place dans la voiture : ça se troque entre voisins !</p>
+    </div>
+  </header>
+
+  <div class="vdn-toolbar">
+    <div class="vdn-filter-row" id="vdn-type-filters"></div>
+    <div class="vdn-filter-row" id="vdn-cat-filters"></div>
+    <div class="vdn-searchrow">
+      <input id="vdn-search" class="vdn-search" type="text" placeholder="Chercher une annonce (ex : tondeuse, espagnol, Carcassonne...)" />
+      <button id="vdn-open-form" class="vdn-btn-primary">+ Déposer une annonce</button>
+    </div>
+  </div>
+
+  <div id="vdn-notice" class="vdn-notice"></div>
+  <main id="vdn-board" class="vdn-board"></main>
+
+</div>
+</div>
+
+<div id="vdn-overlay" class="vdn-overlay">
+  <div id="vdn-form" class="vdn-modal">
+    <h2>Nouvelle annonce</h2>
+    <p class="vdn-modal-sub">Elle sera visible par tous les habitants qui consultent le panneau.</p>
+
+    <div class="vdn-field">
+      <label>Type d'annonce</label>
+      <div class="vdn-radio-row">
+        <label class="vdn-radio-opt" id="vdn-opt-propose">
+          <input type="radio" name="vdn-type" value="propose" checked /> Je propose
+        </label>
+        <label class="vdn-radio-opt" id="vdn-opt-recherche">
+          <input type="radio" name="vdn-type" value="recherche" /> Je recherche
+        </label>
+      </div>
+    </div>
+
+    <div class="vdn-field">
+      <label for="vdn-cat-select">Catégorie</label>
+      <select id="vdn-cat-select"></select>
+    </div>
+
+    <div class="vdn-field">
+      <label for="vdn-title">Titre</label>
+      <input id="vdn-title" type="text" maxlength="70" placeholder="Ex : Aide pour tailler une haie" />
+    </div>
+
+    <div class="vdn-field">
+      <label for="vdn-desc">Description</label>
+      <textarea id="vdn-desc" maxlength="400" placeholder="Précisez ce que vous proposez ou recherchez, la disponibilité, le lieu..."></textarea>
+    </div>
+
+    <div class="vdn-field">
+      <label for="vdn-author">Votre prénom</label>
+      <input id="vdn-author" type="text" maxlength="40" placeholder="Ex : Marie" />
+    </div>
+
+    <div class="vdn-field">
+      <label for="vdn-contact">Contact (facultatif)</label>
+      <input id="vdn-contact" type="text" maxlength="60" placeholder="Téléphone ou e-mail" />
+    </div>
+
+    <p class="vdn-error" id="vdn-error" hidden>Merci de remplir tous les champs obligatoires.</p>
+
+    <div class="vdn-modal-actions">
+      <button type="button" class="vdn-btn-secondary" id="vdn-cancel">Annuler</button>
+      <button type="button" id="vdn-submit" class="vdn-btn-primary">Épingler l'annonce</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const CATEGORIES = [
+    { id: 'bricolage', label: 'Bricolage & réparations', color: '#FF6B6B', icon: '<path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17l1 1 5.3-5.3a4 4 0 0 1 5.4-5.4l-2 2 1.7 1.7 2-2z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/>' },
+    { id: 'jardin', label: 'Jardin & potager', color: '#35B378', icon: '<path d="M12 21c0-6 3-9 7-10-1 5-3 8-7 10Zm0 0c0-5-2.5-8-7-9 1 5 3 7 7 9Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/>' },
+    { id: 'transport', label: 'Covoiturage & transport', color: '#3FA7E1', icon: '<path d="M4 16v-3l2-4h12l2 4v3" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.5" cy="16.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="16.5" r="1.5" fill="currentColor"/>' },
+    { id: 'savoir', label: 'Cours & savoir-faire', color: '#9B5DE5', icon: '<path d="M4 5.5C6 4.5 9 4.5 12 6c3-1.5 6-1.5 8-.5v12c-2-1-5-1-8 .5-3-1.5-6-1.5-8-.5Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/>' },
+    { id: 'garde', label: 'Garde (enfants, animaux, plantes)', color: '#F15BB5', icon: '<path d="M12 20s-7-4.5-7-9.5A4.5 4.5 0 0 1 12 8a4.5 4.5 0 0 1 7 2.5c0 5-7 9.5-7 9.5Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/>' },
+    { id: 'autre', label: 'Autre', color: '#FFC53D', icon: '<path d="M12 3l2.4 6.5L21 11l-5 4.2L17.5 21 12 17.5 6.5 21 8 15.2 3 11l6.6-1.5Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/>' }
+  ];
+  let listings = [];
+  let activeType = 'all';
+  let activeCat = 'all';
+  let searchTerm = '';
+
+  const board = document.getElementById('vdn-board');
+  const typeFilters = document.getElementById('vdn-type-filters');
+  const catFilters = document.getElementById('vdn-cat-filters');
+  const searchInput = document.getElementById('vdn-search');
+  const overlay = document.getElementById('vdn-overlay');
+  const form = document.getElementById('vdn-form');
+  const catSelect = document.getElementById('vdn-cat-select');
+  const errorMsg = document.getElementById('vdn-error');
+  const optPropose = document.getElementById('vdn-opt-propose');
+  const optRecherche = document.getElementById('vdn-opt-recherche');
+
+  function catInfo(id) {
+    return CATEGORIES.find(c => c.id === id) || CATEGORIES[CATEGORIES.length - 1];
+  }
+  function catIcon(id) {
+    const c = catInfo(id);
+    return `<svg style="color:${c.color}" viewBox="0 0 24 24">${c.icon}</svg>`;
+  }
+  function catLabel(id) { return catInfo(id).label; }
+  function catColor(id) { return catInfo(id).color; }
+  function rotFor(id) {
+    let h = 0;
+    for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) % 360;
+    return ((h % 7) - 3) + 'deg';
+  }
+  function formatDate(ts) {
+    const d = new Date(ts);
+    const now = new Date();
+    const diffDays = Math.floor((new Date(now.toDateString()) - new Date(d.toDateString())) / 86400000);
+    if (diffDays === 0) return "aujourd'hui";
+    if (diffDays === 1) return "hier";
+    return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+  }
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[m]));
+  }
+
+  // ---------- Build filter chips ----------
+  function buildFilters() {
+    typeFilters.innerHTML = `
+      <button class="vdn-chip active" data-type="all">Tout</button>
+      <button class="vdn-chip" data-type="propose">Je propose</button>
+      <button class="vdn-chip" data-type="recherche">Je recherche</button>
+    `;
+    catFilters.innerHTML = `<button class="vdn-chip active" data-cat="all">Toutes catégories</button>` +
+      CATEGORIES.map(c => `<button class="vdn-chip" data-cat="${c.id}" style="--cat-color:${c.color}">${catIcon(c.id)}${c.label}</button>`).join('');
+
+    catSelect.innerHTML = CATEGORIES.map(c => `<option value="${c.id}">${c.label}</option>`).join('');
+
+    typeFilters.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-type]');
+      if (!btn) return;
+      activeType = btn.dataset.type;
+      [...typeFilters.children].forEach(b => b.classList.toggle('active', b === btn));
+      render();
+    });
+    catFilters.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-cat]');
+      if (!btn) return;
+      activeCat = btn.dataset.cat;
+      [...catFilters.children].forEach(b => b.classList.toggle('active', b === btn));
+      render();
+    });
+  }
+
+  searchInput.addEventListener('input', e => { searchTerm = e.target.value.trim().toLowerCase(); render(); });
+
+  // ---------- Render board ----------
+  function render() {
+    let items = listings.slice().sort((a, b) => b.createdAt - a.createdAt);
+    if (activeType !== 'all') items = items.filter(i => i.type === activeType);
+    if (activeCat !== 'all') items = items.filter(i => i.category === activeCat);
+    if (searchTerm) {
+      items = items.filter(i =>
+        i.title.toLowerCase().includes(searchTerm) ||
+        i.description.toLowerCase().includes(searchTerm) ||
+        catLabel(i.category).toLowerCase().includes(searchTerm)
+      );
+    }
+
+    if (items.length === 0) {
+      board.innerHTML = `<div class="vdn-empty" style="grid-column:1/-1">
+        <span class="vdn-display">Le panneau est tout vide !</span>
+        ${listings.length === 0 ? 'Soyez le premier à y accrocher une annonce.' : 'Aucune annonce ne correspond à ces filtres.'}
+      </div>`;
+      return;
+    }
+
+    board.innerHTML = items.map((item, i) => `
+      <article class="vdn-card ${item.type}" style="--rot:${rotFor(item.id)}; --cat-color:${catColor(item.category)}; animation-delay:${Math.min(i * 45, 400)}ms">
+        <div class="vdn-tape"></div>
+        <div class="vdn-badge-row">
+          <span class="vdn-badge">${item.type === 'propose' ? 'Je propose' : 'Je recherche'}</span>
+          <span class="vdn-cat">${catIcon(item.category)}${catLabel(item.category)}</span>
+        </div>
+        <h3 class="vdn-card-title">${escapeHtml(item.title)}</h3>
+        <p class="vdn-card-desc">${escapeHtml(item.description)}</p>
+        <div class="vdn-card-footer">
+          <div>
+            <p class="vdn-author">${escapeHtml(item.author)}</p>
+            ${item.contact ? `<p class="vdn-contact">${escapeHtml(item.contact)}</p>` : ''}
+            <button class="vdn-delete" data-id="${item.id}"><svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>retirer l'annonce</span></button>
+          </div>
+          <span class="vdn-date">${formatDate(item.createdAt)}</span>
+        </div>
+        <div class="vdn-replies">
+          ${item.replies && item.replies.length ? `
+            <p class="vdn-replies-label">🙋 ${item.replies.length} personne${item.replies.length > 1 ? 's' : ''} partante${item.replies.length > 1 ? 's' : ''} :</p>
+            <div class="vdn-reply-list">${item.replies.map(r => `<span class="vdn-reply-chip">${escapeHtml(r.author)}${r.contact ? ' · ' + escapeHtml(r.contact) : ''}</span>`).join('')}</div>
+          ` : ''}
+          <button class="vdn-reply-toggle" data-id="${item.id}">${item.type === 'recherche' ? 'Je peux le faire !' : 'Je suis intéressé·e !'}</button>
+          <div class="vdn-reply-form" data-reply-form="${item.id}">
+            <input type="text" class="vdn-reply-author" placeholder="Votre prénom" maxlength="40" />
+            <input type="text" class="vdn-reply-contact" placeholder="Téléphone ou e-mail (facultatif)" maxlength="60" />
+            <p class="vdn-reply-error" data-reply-error="${item.id}" hidden>Merci d'indiquer au moins votre prénom.</p>
+            <button type="button" class="vdn-reply-submit" data-id="${item.id}">Envoyer</button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    board.querySelectorAll('.vdn-delete').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const label = btn.querySelector('span');
+        if (btn.classList.contains('confirm')) {
+          removeListing(btn.dataset.id);
+        } else {
+          btn.classList.add('confirm');
+          label.textContent = 'confirmer ?';
+          setTimeout(() => {
+            if (btn.isConnected) { btn.classList.remove('confirm'); label.textContent = "retirer l'annonce"; }
+          }, 3000);
+        }
+      });
+    });
+
+    board.querySelectorAll('.vdn-reply-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const formEl = board.querySelector(`.vdn-reply-form[data-reply-form="${btn.dataset.id}"]`);
+        if (!formEl) return;
+        formEl.classList.toggle('vdn-open');
+        if (formEl.classList.contains('vdn-open')) formEl.querySelector('.vdn-reply-author').focus();
+      });
+    });
+
+    board.querySelectorAll('.vdn-reply-submit').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.dataset.id;
+        const formEl = board.querySelector(`.vdn-reply-form[data-reply-form="${id}"]`);
+        const authorInput = formEl.querySelector('.vdn-reply-author');
+        const contactInput = formEl.querySelector('.vdn-reply-contact');
+        const errorEl = board.querySelector(`[data-reply-error="${id}"]`);
+        const author = authorInput.value.trim();
+        const contact = contactInput.value.trim();
+        if (!author) {
+          errorEl.hidden = false;
+          return;
+        }
+        const item = listings.find(i => i.id === id);
+        if (!item) return;
+        if (!item.replies) item.replies = [];
+        const reply = { author, contact, createdAt: Date.now() };
+        item.replies.push(reply);
+        render();
+        await safely(() => store.addReply(id, reply));
+      });
+    });
+  }
+
+  // ---------- Storage : base partagée Netlify, sinon repli sur l'appareil ----------
+  const API = '/.netlify/functions/annonces';
+  const LS_KEY = 'vdn-annonces';
+  let mode = 'local';
+  const notice = document.getElementById('vdn-notice');
+  function showNotice(msg) { notice.textContent = msg; notice.classList.add('vdn-show'); }
+  function hideNotice() { notice.classList.remove('vdn-show'); }
+
+  const lsRead = () => { try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch (e) { return []; } };
+  const lsWrite = arr => { try { localStorage.setItem(LS_KEY, JSON.stringify(arr)); } catch (e) {} };
+  async function api(method, body) {
+    const res = await fetch(API, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: body ? JSON.stringify(body) : undefined
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }
+  const store = {
+    async load() {
+      try {
+        const data = await api('GET');
+        if (Array.isArray(data)) { mode = 'shared'; return data; }
+      } catch (e) {}
+      mode = 'local';
+      return lsRead();
+    },
+    async add(item) {
+      if (mode === 'shared') return api('POST', { action: 'add', item });
+      const a = lsRead(); a.push(item); lsWrite(a);
+    },
+    async remove(id) {
+      if (mode === 'shared') return api('POST', { action: 'remove', id });
+      lsWrite(lsRead().filter(i => i.id !== id));
+    },
+    async addReply(id, reply) {
+      if (mode === 'shared') return api('POST', { action: 'reply', id, reply });
+      const a = lsRead(); const it = a.find(i => i.id === id);
+      if (it) { (it.replies = it.replies || []).push(reply); lsWrite(a); }
+    }
+  };
+  async function safely(fn) {
+    try { await fn(); hideNotice(); if (mode === 'local') showLocalNotice(); }
+    catch (e) { showNotice("L'enregistrement a échoué. Vérifiez votre connexion et réessayez."); }
+  }
+  function showLocalNotice() {
+    showNotice("Mode local : les annonces ne sont enregistrées que sur cet appareil (la base partagée n'est pas activée sur ce site).");
+  }
+
+  async function loadListings() {
+    board.innerHTML = `<div class="vdn-empty" style="grid-column:1/-1"><span class="vdn-display">Le panneau se prépare...</span></div>`;
+    listings = await store.load();
+    if (mode === 'local') showLocalNotice();
+    render();
+  }
+  async function removeListing(id) {
+    listings = listings.filter(i => i.id !== id);
+    render();
+    await safely(() => store.remove(id));
+  }
+
+  // ---------- Form / modal ----------
+  function resetForm() {
+    document.getElementById('vdn-title').value = '';
+    document.getElementById('vdn-desc').value = '';
+    document.getElementById('vdn-author').value = '';
+    document.getElementById('vdn-contact').value = '';
+    catSelect.selectedIndex = 0;
+    setTypeUI('propose');
+  }
+
+  document.getElementById('vdn-open-form').addEventListener('click', () => {
+    resetForm();
+    errorMsg.hidden = true;
+    overlay.classList.add('vdn-open');
+  });
+  document.getElementById('vdn-cancel').addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  function closeModal() { overlay.classList.remove('vdn-open'); }
+
+  function setTypeUI(val) {
+    optPropose.classList.toggle('checked-propose', val === 'propose');
+    optRecherche.classList.toggle('checked-recherche', val === 'recherche');
+    optPropose.querySelector('input').checked = val === 'propose';
+    optRecherche.querySelector('input').checked = val === 'recherche';
+  }
+  optPropose.addEventListener('click', () => setTypeUI('propose'));
+  optRecherche.addEventListener('click', () => setTypeUI('recherche'));
+
+  document.getElementById('vdn-submit').addEventListener('click', async () => {
+    const checkedRadio = form.querySelector('input[name="vdn-type"]:checked');
+    const type = checkedRadio ? checkedRadio.value : 'propose';
+    const category = catSelect.value;
+    const title = document.getElementById('vdn-title').value.trim();
+    const description = document.getElementById('vdn-desc').value.trim();
+    const author = document.getElementById('vdn-author').value.trim();
+    const contact = document.getElementById('vdn-contact').value.trim();
+
+    if (!title || !description || !author || !category) {
+      errorMsg.hidden = false;
+      return;
+    }
+    errorMsg.hidden = true;
+
+    const newItem = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+      type, category, title, description, author, contact,
+      createdAt: Date.now()
+    };
+    listings.push(newItem);
+    render();
+    closeModal();
+    await safely(() => store.add(newItem));
+  });
+
+  buildFilters();
+  loadListings();
+})();
+</script>
